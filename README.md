@@ -4,7 +4,7 @@ It contains the scripts used by orange to:
 * Utilise the boeckaerts receptor binding site detection via ML (see <LINK>)
 
 ### Usage:
-'''sh
+```sh
 docker pull iszatt/orange:0.0.1
-'''
+```
 
