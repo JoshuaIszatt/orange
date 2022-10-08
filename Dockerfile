@@ -41,7 +41,7 @@ RUN cpanm File::Copy::Link
 WORKDIR /orange
 
 # Copying pipeline scripts
-COPY ./project_5/pipelines/* \
+COPY ./project_9/pipelines/* \
     ./
 
 # Copying support scripts
