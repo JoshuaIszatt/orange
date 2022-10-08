@@ -1,0 +1,88 @@
+## Development
+
+### Update `package-list.txt` and `requirements.txt`
+
+It is normally not necessary to install conda packages one-by-one as per these instructions, but attempting to install them all at once causes conda to get stuck, hence this workaround adds packages one-by-one.
+
+Start from scratch, with genome-assembly environment not created yet. Remove it if it already exists.
+
+1. Update `environment.yml` and with new conda package requirments. Add any pip packages to `environment.yml` and `requirements.txt`.
+2. Inside `environment.yml` comment out all packages execpt for python.
+3. Create environment:
+
+    ```sh
+    conda env create -f enviroment.yml
+    ```
+
+4. Uncomment a package.
+5. Update environment:
+
+    ```sh
+    conda env update -f environment.yml
+    ```
+
+6. Repeat steps 4 and 5 until all packages are installed.
+7. Activate environment:
+
+    ```sh
+    conda activate genome-assembly
+    ```
+
+8. Export conda package list:
+
+    ```sh
+    conda list --export --explicit | grep -v @EXPLICIT > package-list.txt
+    ```
+
+9. Export pip package list:
+
+    ```sh
+    pip freeze | grep -v " @ " > constraints.txt
+    ```
+
+10. Build new docker image.
+    ```bash
+    docker build -t iszatt/genome-assembly:<tag> .
+    ```
+11. Test that it works (by running it)
+    ```bash
+     docker run -v <PATH_TO_RAW_SEQUENCES>:/genome-assembly/data/raw_sequences \
+    -v <PATH_TO_WORKING_DIRECTORY>:/genome-assembly/data/working \
+    iszatt/genome-assembly:<TAG>
+
+    OR (from within git repo)
+
+    ./run.sh
+    ```
+
+12. Push to DockerHub
+
+    ```bash
+    docker push iszatt/genome-assembly:<tag>
+    ```
+    
+    
+    
+    
+
+        # Writing software report
+        echo iszatt/genome-assembly v1.0.0 pipeline >${OUT}/${base}_report.txt
+        ls ./software/ | awk NR==3 >>${OUT}/${base}_report.txt
+        fastqc --version >>${OUT}/${base}_report.txt
+        J=$(grep "Version" ./software/bbmap/README.md)
+        I=$(echo bbmap)
+        echo $I $J >>${OUT}/${base}_report.txt                                
+        ls software/ | awk NR==2 >>${OUT}/${base}_report.txt                  
+        ls software/ | awk NR==5 >>${OUT}/${base}_report.txt                  
+        pilon --version | awk NR==1 | cut -b 1-19 >>${OUT}/${base}_report.txt 
+        abricate --version >>${OUT}/${base}_report.txt                       
+        echo bacphlip version: >>${OUT}/${base}_report.txt                    #UNFINISHED
+        echo checkv version: 0.9.0 >>${OUT}/${base}_report.txt                #UNFINISHED
+        echo fastANI version: 1.33 >>${OUT}/${base}_report.txt                #UNFINISHED
+        #prokka
+        #blastx
+
+
+Notes:
+Foldx usage:
+fx FoldX --command= <option> --pdb= <option>
