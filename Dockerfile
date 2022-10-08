@@ -22,8 +22,9 @@ RUN apt-get update \
     unzip \
     vim
 
-# Set up python environments, install packages, and activate conda env.
+# Setting up environments
 COPY ./build/*txt ./
+
 RUN conda create --name curate --file package-list.txt \
     && conda init bash \
     && echo "conda activate curate" >> ~/.bashrc
@@ -31,17 +32,17 @@ RUN conda create --name curate --file package-list.txt \
 RUN conda create --name rbp_detect --file package-list2.txt \
     && conda init bash
 
-# Directory for software installation.
-WORKDIR /orange/software
+RUN conda create --name annotate --file package-list3.txt \
+    && conda init bash
 
-# Install perl modules.
-RUN cpanm File::Copy::Link
+# Directory for software installation (these need to be added to bashrc below)
+WORKDIR /orange/software
 
 # Reset working directory.
 WORKDIR /orange
 
 # Copying pipeline scripts
-COPY ./project_5/pipelines/* \
+COPY ./project_9/pipelines/* \
     ./
 
 # Copying support scripts
@@ -59,4 +60,6 @@ COPY ./Dockerfile \
 # Update path.
 ENV PATH="/orange/software/${PATH}"
 
+# Entry point or command on docker run usage
 CMD [ "echo You are using orange:0.0.1" ]
+
