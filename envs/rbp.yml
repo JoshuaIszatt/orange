@@ -1,0 +1,12 @@
+name: pario
+channels:
+  - default
+  - conda-forge
+  - anaconda
+dependencies:
+  - jupyterlab
+  - pandas
+  - numpy
+  - tqdm
+  - seaborn
+  - biopython
