@@ -51,7 +51,7 @@ Start from scratch, with no environment active. Remove it if it already exists.
 
 11. Test that it works (by running it)
     ```bash
-     docker run -v <PATH_TO_RAW_SEQUENCES>:/orange/working iszatt/genome-assembly:<TAG>
+     docker run -v <PATH_TO_RAW_SEQUENCES>:/orange/working iszatt/orange:<TAG>
     ```
 
 ^ This run command will mount the <PATH TO RAW SEQ> into the container directory /orange/working/
