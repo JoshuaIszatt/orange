@@ -23,8 +23,12 @@ git add --all
 git commit -m 'some changes'
 git push
 
+
+AT THIS POINT: You can keep working on your branch for ages without care. We only need to move on when we are ready to test out the container with both of our changes / functions.
+
 8. Whe you have finished making changes and the code is stable, switch back to main
 git switch main 
 
-9. Merge your <NAME> branch into the main branch
+9. Merge your <NAME> branch into the main branch and push to remote repository
 git merge <NAME>
+git push 
