@@ -1,0 +1,30 @@
+When working on a document with somebody else at the same time:
+
+1. Login and enter container
+
+Update yoour copy of the repository
+2. git fetch
+3. git pull
+
+NOTE: You now have the most up to date repository
+
+Create a new branch with you name on it
+4. git branch <NAME>
+
+Switch to your branch
+5. git switch <MAIN>
+
+Check you are on the correct branch before making changes 
+6. git branch --all
+(The branch you are on will have a * next to it)
+
+7. Make your changes on your branch and afterwards:
+git add --all
+git commit -m 'some changes'
+git push
+
+8. Whe you have finished making changes and the code is stable, switch back to main
+git switch main 
+
+9. Merge your <NAME> branch into the main branch
+git merge <NAME>
