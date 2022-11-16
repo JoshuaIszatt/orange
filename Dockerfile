@@ -18,7 +18,6 @@ RUN apt-get update \
     pkg-config \
     python3-matplotlib \
     software-properties-common \
-    r-base \
     unzip \
     vim 
 
