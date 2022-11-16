@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM continuumio/anaconda3:2021.11
 
 # Install apt packages.
 RUN apt-get update \
