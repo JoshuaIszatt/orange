@@ -1,0 +1,20 @@
+name: assemble
+channels:
+  - default
+  - conda-forge
+  - bioconda
+  - agbiome
+dependencies:
+  - python==3.6
+  - pandas==0.25.3
+  - biopython
+  - fastqc
+  - pilon
+  - hmmer
+  - bacphlip
+  - trnascan-se
+  - abricate 
+  - checkv
+  - mafft
+  - raxml
+  - argparse

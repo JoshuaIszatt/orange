@@ -1,0 +1,11 @@
+name: annotate
+channels:
+  - default
+  - conda-forge
+  - bioconda
+dependencies:
+  - python==3.6
+  - pandas==0.25.3
+  - biopython
+  - hmmer
+  - prokka
