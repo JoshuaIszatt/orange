@@ -1,0 +1,12 @@
+name: crispr
+channels:
+  - default
+  - conda-forge
+  - bioconda
+dependencies:
+  - python==3.6
+  - clustalw
+  - emboss
+  - viennarna
+  - cd-hit
+  - blast

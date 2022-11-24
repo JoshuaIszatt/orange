@@ -1,0 +1,8 @@
+name: padloc
+channels:
+  - default
+  - conda-forge
+  - bioconda
+  - padlocbio 
+dependencies:
+  - padloc

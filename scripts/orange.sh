@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-echo 'You wish to have the power of a golden god?' (y/n)
+echo 'You wish to have the power of a golden god?'
 read answer
 
 if [ "$answer" == 'y' ]; then
