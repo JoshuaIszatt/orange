@@ -10,3 +10,4 @@ dependencies:
   - viennarna
   - cd-hit
   - blast
+  - perl-test-warn

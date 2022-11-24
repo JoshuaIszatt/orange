@@ -27,10 +27,13 @@ RUN conda create --name crispr --file crisprdetect-list.txt \
     #&& bash installer_UBUNTU.sh 
     #&& source ~/.profile
 
-#RUN wget http://search.cpan.org/CPAN/authors/id/Y/YA/YANICK/Parallel-ForkManager-1.19.tar.gz \
-#&& tar xvzf Parallel-ForkManager-1.19.tar.gz \
-#&& cd Parallel-ForkManager-1.19 \
-#&& perl Makefile.PL && make test #&& make install
+SHELL ["conda", "run", "-n", "crispr", "/bin/bash", "-c", "conda", "run", "--no-capture-output", "-n", "crispr", "python3", "src/server.py"] 
+#ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "crispr", "python3", "src/server.py"]
+
+RUN wget http://search.cpan.org/CPAN/authors/id/Y/YA/YANICK/Parallel-ForkManager-1.19.tar.gz \
+&& tar xvzf Parallel-ForkManager-1.19.tar.gz \
+&& cd Parallel-ForkManager-1.19 \
+&& perl Makefile.PL && make test && make install
 
 # Update path.
 ENV PATH="/orange/SOFTWARE/bbmap:${PATH}"
