@@ -40,42 +40,64 @@ annotate() {
         base="$(cut -d'.' -f1 <<<${file})"
         OUT=${FIN}/${base}
         mkdir -p ${OUT}
+        
+     ##Bakta Annotation
+        if ! bakta \
+            --db ${DB} \
+            --prefix ${base} \
+            --output ${OUT}/bakta \
+            #--genus 
+            #--species 
+            --translation-table 11 \
+            #--gram 
+            --keep-contig-headers \
+            --compliant \
+            -t 8 \
+            ${A}; then
+            echo "Failed to Bakta annotate ${base}" >>>${OUT}/error.txt
+        fi    
+
+        if ! defense-finder \
+            run -o ${OUT}/defense \
+            ${OUT}/bakta/${base}.faa
+            echo "Failed to defense finder annotate ${base}" >>>${OUT}/error.txt
+        fi
 
         #   Prokka annotation with PHROGs
-        if ! prokka \
-            ${A} \
-            --outdir ${OUT}/prokka \
-            --locustag ${base} \
-            --addgenes \
-            --notrna \
-            --kingdom Bacteria \
-            --gcode 11 \
-            --compliant; then
-            echo "Failed to annotate ${base}" >>${OUT}/error.txt
-        fi
-        conda deactivate
-        conda activate crispr
+        #if ! prokka \
+            #${A} \
+            #--outdir ${OUT}/prokka \
+            #--locustag ${base} \
+            #--addgenes \
+            #--notrna \
+            #--kingdom Bacteria \
+            #--gcode 11 \
+            #--compliant; then
+            #echo "Failed to annotate ${base}" >>${OUT}/error.txt
+        #fi
+        #conda deactivate
+        #conda activate crispr
        
         #CRISPRcas Finder#
-        CRISPRCasFinder.pl -cas -gscf -gcode 11 \
-        -in ${A} \
-        -faa ${OUT}/prokka/${base}.faa \
-        -gff ${OUT}/prokka/${base}.gff \
-        -out ${OUT}/
+        #CRISPRCasFinder.pl -cas -gscf -gcode 11 \
+        #-in ${A} \
+        #-faa ${OUT}/prokka/${base}.faa \
+        #-gff ${OUT}/prokka/${base}.gff \
+        #-out ${OUT}/
 
         #CRISPR Detect
         
 
 
         #PADLOC (PRokaryotic Antiviral Defence LOCator)
-        conda deactivate
-        conda activate padloc
+        #conda deactivate
+        #conda activate padloc
 
-        padloc --faa ${OUT}/prokka/${base}.faa \
-        --gff ${OUT}/prokka/${base}.gff \
-        --fna ${A} \
+        #padloc --faa ${OUT}/prokka/${base}.faa \
+        #--gff ${OUT}/prokka/${base}.gff \
+        #--fna ${A} \
         #--crispr 
-        --outdir ${OUT}/padloc/
+        #--outdir ${OUT}/padloc/
 
         ##Might have to move until after other annotation programs##
         #   Data wrangling for BRIG
@@ -129,6 +151,7 @@ annotate() {
             >${OUT}/megares.txt
 
     done
+
 }
 
 network() {

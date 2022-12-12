@@ -128,13 +128,34 @@ for A in ${INPUT}/*_R1*; do
         mv ${OUT}/spades ${OUT}/SPAdes
         rm ${OUT}/unmerged.fastq
     fi
+    #Getting a reference genome
+    mkdir ${OUT}/ref
+    blastn -remote \
+        -query ${OUT}/spades/contigs.fasta \
+        -out ${OUT}/ref/refgenome -max_target_seqs 1 -outfmt 6
+
+    awk '{print $2}' ${OUT}/ref/refgenome >${OUT}/ref/refgenome1
+
+    sort ${OUT}/ref/refgenome1 | uniq >${OUT}/ref/refgenome2
+
+    Ref1="$(awk NR==1 ${OUT}/ref/refgenome2)"
+
+    echo "${Ref1}"
+
+    echo "Downloading References"
+
+    efetch -db nucleotide -id ${Ref1} -format fasta >${OUT}/ref/${Ref1}.fasta
+
+    rm ${OUT}/ref/refgenome
+    rm ${OUT}/ref/refgenome1
+    rm ${OUT}/ref/refgenome2
 
     #   Contig extraction (using filter.py)
-    cat ${OUT}/SPAdes/contigs.fasta | grep ">" >${OUT}/SPAdes/prefilter-contigs.txt
-    cp ${OUT}/SPAdes/contigs.fasta ${TEMP}/
-    ${RUN}/filter.py
-    rm ${TEMP}/contigs.fasta
-    mv ${TEMP}/phage_contig.fasta ${OUT}/contig.fasta
+    #cat ${OUT}/SPAdes/contigs.fasta | grep ">" >${OUT}/SPAdes/prefilter-contigs.txt
+    #cp ${OUT}/SPAdes/contigs.fasta ${TEMP}/
+    # ${RUN}/filter.py
+    #rm ${TEMP}/contigs.fasta
+    #mv ${TEMP}/phage_contig.fasta ${OUT}/contig.fasta
 
     #  Mapping, sorting, and indexing
     bbmap.sh -Xmx4096m ref=${OUT}/contig.fasta \

@@ -1,9 +1,10 @@
-name: assemble
+name: assemble1
 channels:
   - default
   - conda-forge
   - bioconda
   - agbiome
+  - anaconda
 dependencies:
   - python==3.6
   - biopython
@@ -15,5 +16,11 @@ dependencies:
   - checkv
   - mafft
   - raxml
-  - argparse
+  #- argparse
+  #- medusa
+  #- java-jdk
+  #- networkx
+  #- numpy
+  #- mummer
+
 
