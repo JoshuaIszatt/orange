@@ -20,10 +20,11 @@ RUN conda create --name bakta --file bakta-list.txt \
     && conda init bash \
     && bakta_db download --output ./orange/DATA
 
-RUN conda create -name defensefinder \
-    && conda init bash \
-    && pip install mdmparis-defense-finder \
-    && defense-finder update
+#Install Bakta Annotator
+#RUN conda create -name defensefinder \
+    #&& conda init bash \
+    #&& pip install mdmparis-defense-finder \
+    #&& defense-finder update
 
 
 #RUN conda create --name PADLOC --file PADLOC-list.txt
