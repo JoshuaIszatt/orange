@@ -57,11 +57,17 @@ annotate() {
             echo "Failed to Bakta annotate ${base}" >>>${OUT}/error.txt
         fi    
 
+        #Defense Finder
         if ! defense-finder \
             run -o ${OUT}/defense \
-            ${OUT}/bakta/${base}.faa
+            ${OUT}/bakta/${base}.faa; then
             echo "Failed to defense finder annotate ${base}" >>>${OUT}/error.txt
         fi
+
+        #MLST
+        if ! mlst \
+            ${A} > ${OUT}/${base}_MLST.tsv; then
+            echo "Failed to MLST annotate ${base}" >>>${OUT}/error.txt
 
         #   Prokka annotation with PHROGs
         #if ! prokka \

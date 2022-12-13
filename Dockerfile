@@ -20,12 +20,14 @@ RUN conda create --name bakta --file bakta-list.txt \
     && conda init bash \
     && bakta_db download --output ./orange/DATA
 
-#Install Bakta Annotator
-#RUN conda create -name defensefinder \
-    #&& conda init bash \
-    #&& pip install mdmparis-defense-finder \
-    #&& defense-finder update
+#Install Defense Finder
+RUN conda create -name defensefinder --file defensefinder-list.txt \
+    && conda init bash \
+    && pip install mdmparis-defense-finder \
+    && macsydata install -U -u --org mdmparis defense-finder-models
 
+#Install MLST
+RUN conda create -name mlst --file mlst-list.txt
 
 #RUN conda create --name PADLOC --file PADLOC-list.txt
 
@@ -48,9 +50,9 @@ RUN conda create --name bakta --file bakta-list.txt \
 #&& perl Makefile.PL && make test && make install
 
 # Update path.
-ENV PATH="/orange/SOFTWARE/bbmap:${PATH}"
-ENV PATH="/orange/SOFTWARE/SPAdes-3.15.4-Linux/bin:${PATH}"
-ENV PATH="/orange/SCRIPTS:${PATH}"
+#ENV PATH="/orange/SOFTWARE/bbmap:${PATH}"
+#ENV PATH="/orange/SOFTWARE/SPAdes-3.15.4-Linux/bin:${PATH}"
+#ENV PATH="/orange/SCRIPTS:${PATH}"
 #ENV PATH="/orange/software/CRISPRCasFinder.pl:${PATH}"
 # Reset working directory.
 
